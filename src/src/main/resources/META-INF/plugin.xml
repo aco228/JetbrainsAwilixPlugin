@@ -1,0 +1,45 @@
+<idea-plugin>
+    <id>org.example.JetbrainsAwilixPlugin</id>
+    <name>JetbrainsAwilixPlugin</name>
+    <version>1.0</version>
+    <vendor email="support@aco228.com" url="http://www.aco228.com">aco228</vendor>
+
+    <description><![CDATA[
+    Testing testing baybe girl<br>
+    <em>will change later</em>
+    ]]></description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+
+        <notificationGroup id="NotificationGroup"
+                           displayType="BALLOON"/>
+<!--                           key="notification.group.name"-->
+
+    </extensions>
+
+    <actions>
+        <action id="org.aco228.action.GotoContainerLocationAction"
+                class="org.aco228.action.GotoContainerLocationAction"
+                text="Go to container location"
+                description="Go to location in container"
+                icon="SdkIcons.Sdk_default_icon">
+<!--            <keyboard-shortcut keymap="$default" first-keystroke="control alt 8"/>-->
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+        <action id="org.aco228.action.GotoServiceDeclarationAction"
+                class="org.aco228.action.GotoServiceDeclarationAction"
+                text="Go to Awilix service"
+                description="Go to Awilic service implementation"
+                icon="SdkIcons.Sdk_default_icon">
+            <keyboard-shortcut keymap="$default" first-keystroke="control alt B"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+
+    </actions>
+</idea-plugin>
