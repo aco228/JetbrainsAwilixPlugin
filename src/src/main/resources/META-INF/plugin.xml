@@ -5,8 +5,7 @@
     <vendor email="support@aco228.com" url="http://www.aco228.com">aco228</vendor>
 
     <description><![CDATA[
-    Testing testing baybe girl<br>
-    <em>will change later</em>
+    Plugin for easy development when using node [awilix](https://www.npmjs.com/package/awilix)
     ]]></description>
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
@@ -18,14 +17,13 @@
 
         <notificationGroup id="NotificationGroup"
                            displayType="BALLOON"/>
-<!--                           key="notification.group.name"-->
 
     </extensions>
 
     <actions>
         <action id="org.aco228.action.GotoContainerLocationAction"
                 class="org.aco228.action.GotoContainerLocationAction"
-                text="Go to container location"
+                text="[Awilix] - Go to container definition"
                 description="Go to location in container"
                 icon="SdkIcons.Sdk_default_icon">
 <!--            <keyboard-shortcut keymap="$default" first-keystroke="control alt 8"/>-->
@@ -34,7 +32,7 @@
 
         <action id="org.aco228.action.GotoServiceDeclarationAction"
                 class="org.aco228.action.GotoServiceDeclarationAction"
-                text="Go to Awilix service"
+                text="[Awilix] - Go to implementation"
                 description="Go to Awilic service implementation"
                 icon="SdkIcons.Sdk_default_icon">
             <keyboard-shortcut keymap="$default" first-keystroke="control alt B"/>

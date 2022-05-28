@@ -19,6 +19,7 @@ hs_err_pid*
 ### Gradle ###
 src/.gradle
 src/.idea/
+secrets/
 src/build/
 src/gradle/
 
