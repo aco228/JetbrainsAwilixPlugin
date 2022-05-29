@@ -60,7 +60,7 @@ public class FileSymbolExtractor {
     }
 
     private int GetBeginningOfLineWord(String line) {
-        for(int i = _columnNumber; i >= 0; i --) {
+        for(int i = _columnNumber -1; i >= 0; i --) {
             if(!isCharacterValidAt(i, line))
                 return ++i;
         }
@@ -72,7 +72,7 @@ public class FileSymbolExtractor {
             if(!isCharacterValidAt(i, line))
                 return i;
         }
-        return line.length() - 1;
+        return _columnNumber;
     }
 
     private boolean isCharacterValidAt(int position, String line){

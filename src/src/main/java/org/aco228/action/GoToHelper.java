@@ -14,7 +14,8 @@ public class GoToHelper {
                 break;
             }
 
-            if (currentFile.isDirectory() && currentFile.getName().equals("src")) {
+            VirtualFile packageJson  = currentFile.findChild("package.json");
+            if(packageJson != null && !packageJson.isDirectory()){
                 return currentFile;
             }
 
