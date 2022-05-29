@@ -1,5 +1,7 @@
 package org.aco228.symbols;
 
+import org.aco228.symbols.models.RegistrationModel;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;

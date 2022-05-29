@@ -44,4 +44,9 @@ public class GoToHelper {
                 .createNotification(content, NotificationType.ERROR)
                 .notify(project);
     }
+
+    public static boolean checkIfNpmPackageExists(VirtualFile srcFile, String location) {
+        VirtualFile file = srcFile.findFileByRelativePath("./node_modules/" + location);
+        return file != null && file.isDirectory();
+    }
 }

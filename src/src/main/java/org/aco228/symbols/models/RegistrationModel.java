@@ -1,4 +1,4 @@
-package org.aco228.symbols;
+package org.aco228.symbols.models;
 
 public class RegistrationModel {
     public String registrationName = "";
@@ -24,5 +24,9 @@ public class RegistrationModel {
         System.out.println("SymbolName = " + symbolName);
         System.out.println("Location = " + relativeLocation);
         System.out.println("LineNumberInContainer = " + lineNumberInContainer);
+    }
+
+    public boolean isNpmPackage(){
+        return hasRelativeLocation() && !relativeLocation.startsWith("./");
     }
 }

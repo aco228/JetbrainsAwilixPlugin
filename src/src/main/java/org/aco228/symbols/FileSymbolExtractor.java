@@ -38,6 +38,10 @@ public class FileSymbolExtractor {
     }
 
     private void processLine(String line){
+        if(line == null || line.isEmpty() || line.isBlank()) {
+            return;
+        }
+
         if(_columnNumber >= line.length()) {
             _hasError = true;
             return;

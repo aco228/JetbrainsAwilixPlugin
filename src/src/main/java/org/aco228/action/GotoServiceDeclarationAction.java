@@ -12,7 +12,9 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.aco228.symbols.ContainerSymbolExtraction;
 import org.aco228.symbols.FileLineNumberHelper;
 import org.aco228.symbols.FileSymbolExtractor;
-import org.aco228.symbols.RegistrationModel;
+import org.aco228.symbols.NpmPackageFunctionExtractor;
+import org.aco228.symbols.models.NpmPackageFindResult;
+import org.aco228.symbols.models.RegistrationModel;
 import org.jetbrains.annotations.NotNull;
 
 public class GotoServiceDeclarationAction extends AnAction {
@@ -85,6 +87,25 @@ public class GotoServiceDeclarationAction extends AnAction {
             return;
         }
 
+        if (registrationModel.isNpmPackage()
+                && !fileSymbolExtractor.getFunctionWord().isEmpty()
+                && GoToHelper.checkIfNpmPackageExists(srcFile, registrationModel.relativeLocation)){
+            NpmPackageFunctionExtractor npmPackageFunctionExtractor = new NpmPackageFunctionExtractor(
+                    srcFile.getPath(),
+                    registrationModel.relativeLocation,
+                    fileSymbolExtractor.getSymbolWord(),
+                    fileSymbolExtractor.getFunctionWord());
+
+            NpmPackageFindResult npmPackageFindResult = npmPackageFunctionExtractor.getResult();
+            if (npmPackageFindResult != null) {
+                VirtualFile npmFile = srcFile.findFileByRelativePath(npmPackageFindResult.location);
+                if(npmFile != null){
+                    FileEditorManager.getInstance(currentProject).openTextEditor(new OpenFileDescriptor(currentProject, npmFile, npmPackageFindResult.lineNumber, 0), true);
+                    return;
+                }
+            }
+        }
+
         VirtualFile virtualFile = getVirtualFile(srcFile, registrationModel);
         if(virtualFile == null) {
             GoToHelper.notifyError(currentProject, "Could not find anything at location, so you will be transported to `container.js`. Location = " + registrationModel.relativeLocation);
@@ -92,13 +113,13 @@ public class GotoServiceDeclarationAction extends AnAction {
             return;
         }
 
-        if(fileSymbolExtractor.getFunctionWord().isEmpty()) {
+        if (fileSymbolExtractor.getFunctionWord().isEmpty()) {
             FileEditorManager.getInstance(currentProject).openTextEditor( new OpenFileDescriptor(currentProject, virtualFile), true);
             return;
         }
 
         int lineNumber = FileLineNumberHelper.GetLineNumber(virtualFile.getPath(), " " + fileSymbolExtractor.getFunctionWord());
-        if(lineNumber == -1) {
+        if (lineNumber == -1) {
             FileEditorManager.getInstance(currentProject).openTextEditor( new OpenFileDescriptor(currentProject, virtualFile), true);
             return;
         }

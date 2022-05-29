@@ -9,7 +9,7 @@ import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.aco228.symbols.ContainerSymbolExtraction;
-import org.aco228.symbols.RegistrationModel;
+import org.aco228.symbols.models.RegistrationModel;
 import org.jetbrains.annotations.NotNull;
 
 public class GotoContainerLocationAction extends AnAction {
