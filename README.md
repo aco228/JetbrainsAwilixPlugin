@@ -5,14 +5,8 @@ Plugin for easy development when using node [awilix](https://www.npmjs.com/packa
 ## Requirements
 
 - Your project must be node
-- Root of your project must be *src*
-- In *src* you must have `container.js` where you define all [awilix](https://www.npmjs.com/package/awilix) dependencies
-- Structure of your project must be:
-
-Example of expected project structure:
-
-![image](https://user-images.githubusercontent.com/35331284/170844588-a6dae835-7229-43e1-9894-68e7b16cd214.png)
-
+- Root of your project will be directory where `package.json` is located
+- In your project root you must have `container.js` where you define all [awilix](https://www.npmjs.com/package/awilix) dependencies
 
 ## How to use
 
@@ -32,6 +26,11 @@ If your shortcut is configured properly, you can directly go to implementation o
 If your cursor is inside the name of function, when you perform shortcut action, it will try to get service from the `container.js` and if succede, it will try to locate function isnide service implementation.
 
 
+## Shortcut
+
+Defined shortcut for this plugin is `Ctrl Alt B`, just so it can be similar to `Ctrl B` (default jetbrains shortcut for go to definition). But this shortcut is already defined by default in jetbrains, so in order to use it, you will need to remove it its default usage, or define new one
+
+![image](https://user-images.githubusercontent.com/35331284/170890426-af84f213-5dc6-43f9-9cca-095343fb1d7e.png)
 
 ## How to install from github
 
