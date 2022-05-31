@@ -118,7 +118,7 @@ public class GotoServiceDeclarationAction extends AnAction {
             return;
         }
 
-        int lineNumber = FileLineNumberHelper.GetLineNumber(virtualFile.getPath(), " " + fileSymbolExtractor.getFunctionWord());
+        int lineNumber = FileLineNumberHelper.GetLineNumber(virtualFile.getPath(), fileSymbolExtractor.getFunctionWord());
         if (lineNumber == -1) {
             FileEditorManager.getInstance(currentProject).openTextEditor( new OpenFileDescriptor(currentProject, virtualFile), true);
             return;

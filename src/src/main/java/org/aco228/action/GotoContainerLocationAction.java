@@ -4,11 +4,13 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.editor.VisualPosition;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.aco228.symbols.ContainerSymbolExtraction;
+import org.aco228.symbols.FileSymbolExtractor;
 import org.aco228.symbols.models.RegistrationModel;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,11 +22,20 @@ public class GotoContainerLocationAction extends AnAction {
             final VirtualFile currentFile = e.getRequiredData(CommonDataKeys.VIRTUAL_FILE);
             final VirtualFile srcFile = GoToHelper.getSrcRoot(currentFile);
             final String selectedText = GoToHelper.extractSelectedText(editor.getSelectionModel().getSelectedText());
+            final VisualPosition visualPosition = editor.getSelectionModel().getLeadSelectionPosition();
+            String symbolName = "";
 
         try {
-            if (selectedText == null || selectedText.isEmpty()) {
-                GoToHelper.notifyError(currentProject, "Nothing is selected in editor");
-                return;
+
+            if(selectedText != null && !selectedText.isEmpty()){
+                symbolName = selectedText;
+            } else{
+                FileSymbolExtractor fileSymbolExtractor = new FileSymbolExtractor(currentFile.getPath(), visualPosition.getLine(), visualPosition.getColumn());
+                if (fileSymbolExtractor.hasError()) {
+                    GoToHelper.notifyError(currentProject, "File symbol extractor had an error");
+                    return;
+                }
+                symbolName = fileSymbolExtractor.getSymbolWord();
             }
 
             if (srcFile == null){
@@ -44,9 +55,9 @@ public class GotoContainerLocationAction extends AnAction {
                 return;
             }
 
-            RegistrationModel registrationModel = symbolExtraction.getRegistration(selectedText);
+            RegistrationModel registrationModel = symbolExtraction.getRegistration(symbolName);
             if(registrationModel == null) {
-                GoToHelper.notifyError(currentProject, "Could not find symbol = " + selectedText);
+                GoToHelper.notifyError(currentProject, "Could not find symbol = " + symbolName);
                 return;
             }
 
