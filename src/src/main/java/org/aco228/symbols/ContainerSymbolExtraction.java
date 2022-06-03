@@ -66,7 +66,9 @@ public class ContainerSymbolExtraction {
                     continue;
                 }
 
-                if (line.contains("require(") || _readRegularLineDoublelineMode) {
+                line = line.trim();
+
+                if (line.startsWith("const ") || line.contains("require(") || _readRegularLineDoublelineMode) {
                     readRegularLine(line);
                 } else if(line.contains("awilix.")) {
                     readRegistrationLine(line, lineNumber);
@@ -108,7 +110,7 @@ public class ContainerSymbolExtraction {
 
         String[] split = line.split("=");
         String symbolName = getSymbolName(split[0]);
-        if (split.length != 2) {
+        if (split.length != 2 || split[1].trim().equals("")) {
             _readRegularLineDoublelineMode = true;
             _readRegularLineSymbolName = symbolName;
             return;
