@@ -57,7 +57,6 @@ public class ContainerSymbolExtraction {
         try (BufferedReader br = new BufferedReader(new FileReader(_filepath))) {
             String line = br.readLine();
             int lineNumber = 0;
-            boolean registrationMode = false;
 
             while (line != null) {
                 ++lineNumber;
@@ -67,18 +66,9 @@ public class ContainerSymbolExtraction {
                     continue;
                 }
 
-                if (!registrationMode && line.trim().contains(".register(")) {
-                    registrationMode = true;
-                    continue;
-                }
-
-                if (registrationMode && line.trim().contains("});")) {
-                    break;
-                }
-
-                if (!registrationMode) {
+                if (line.contains("require(") || _readRegularLineDoublelineMode) {
                     readRegularLine(line);
-                } else {
+                } else if(line.contains("awilix.")) {
                     readRegistrationLine(line, lineNumber);
                 }
             }
